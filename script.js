@@ -146,7 +146,7 @@ function applySettings() {
     const logoImg = document.getElementById('site-logo');
     if (logoImg) {
         logoImg.src = 'logo.jpeg';
-        logoImg.style.height = '60px';
+        logoImg.style.height = '40px';
         logoImg.style.display = 'block';
     }
 
@@ -264,4 +264,24 @@ applySettings();
 
 if (document.getElementById('projects-grid')) {
     renderProjects();
+}
+
+// WhatsApp Contact Form Logic
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const name = document.getElementById('waName').value;
+        const email = document.getElementById('waEmail').value;
+        const message = document.getElementById('waMessage').value;
+        
+        // Format phone number (remove spaces, dashes, keeping the +)
+        const phone = settings.phone.replace(/[^\d+]/g, '');
+        
+        const text = `Hello MechaForge!%0A%0A*Name:* ${name}%0A*Email:* ${email}%0A%0A*Message:*%0A${message}`;
+        
+        const whatsappUrl = `https://wa.me/${phone}?text=${text}`;
+        window.open(whatsappUrl, '_blank');
+    });
 }

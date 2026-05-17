@@ -19,7 +19,7 @@
 <body>
     <nav class="navbar">
         <div class="logo">
-            <img id="site-logo" src="logo.jpeg" alt="MechaForge Logo" style="height: 60px; display: block;">
+            <img id="site-logo" src="logo.jpeg" alt="MechaForge Logo" style="height: 40px; display: block;">
         </div>
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
@@ -100,11 +100,11 @@
                         <span id="contact-phone">+94 77 123 4567</span>
                     </div>
                 </div>
-                <form class="contact-form">
-                    <input type="text" placeholder="Your Name" required>
-                    <input type="email" placeholder="Your Email" required>
-                    <textarea placeholder="Project Details" rows="5" required></textarea>
-                    <button type="submit" class="btn-primary">Send Message</button>
+                <form class="contact-form" id="contactForm">
+                    <input type="text" id="waName" placeholder="Your Name" required>
+                    <input type="email" id="waEmail" placeholder="Your Email" required>
+                    <textarea id="waMessage" placeholder="Project Details" rows="5" required></textarea>
+                    <button type="submit" class="btn-primary">Send via WhatsApp <i class="fab fa-whatsapp"></i></button>
                 </form>
             </div>
         </div>
