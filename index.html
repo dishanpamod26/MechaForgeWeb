@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MechaForge Engineering | Precision Automation Solutions</title>
+    <meta name="description"
+        content="MechaForge Engineering provides state-of-the-art industrial machine automation solutions. Custom machines, robotics, and smart manufacturing.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap"
+        rel="stylesheet">
+    <script src="https://kit.fontawesome.com/d6f3576e01.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img id="site-logo" src="logo.png" alt="MechaForge Logo" style="height: 80px; display: block;">
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><button id="admin-btn" class="btn-secondary">Admin</button></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="hero">
+        <div id="hero-bg-container" class="hero-bg-slideshow"></div>
+        <div class="hero-content">
+            <h1 id="hero-slogan" class="animate-up">Engineering the <span class="gradient-text">Future</span> of
+                Industry</h1>
+            <p class="animate-up delay-1">Precision-built automation machines designed to scale your production and
+                optimize efficiency.</p>
+            <div class="hero-btns animate-up delay-2">
+                <a href="#projects" class="btn-primary">View Projects</a>
+                <a href="#contact" class="btn-outline">Get a Quote</a>
+            </div>
+        </div>
+        <div class="hero-overlay"></div>
+    </section>
+
+    <section id="projects" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Industries <span class="gradient-text">We Service</span></h2>
+                <p>Explore our latest machine builds and automated systems.</p>
+            </div>
+            <div id="projects-grid" class="projects-grid">
+                <!-- Projects will be injected here by JS -->
+                <div class="project-card skeleton"></div>
+                <div class="project-card skeleton"></div>
+                <div class="project-card skeleton"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="section bg-dark">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our <span class="gradient-text">Expertise</span></h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-robot"></i>
+                    <h3>Robotics Integration</h3>
+                    <p>Custom robotic arms and automated sorting systems for high-speed production.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-cogs"></i>
+                    <h3>Custom Machinery</h3>
+                    <p>End-to-end design and fabrication of unique industrial machinery.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-microchip"></i>
+                    <h3>PLC Programming</h3>
+                    <p>Advanced control systems and industrial software development.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="contact-card glass">
+                <div class="contact-info">
+                    <h2>Work with <span class="gradient-text">Experts</span></h2>
+                    <p>Ready to automate? Contact us for a consultation.</p>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <span id="contact-email">contact@ariya.com</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <span id="contact-phone">+94 77 123 4567</span>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea placeholder="Project Details" rows="5" required></textarea>
+                    <button type="submit" class="btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admin Modal -->
+    <div id="admin-modal" class="modal">
+        <div id="modal-container" class="modal-content glass">
+            <span class="close-modal">&times;</span>
+            <div id="login-form" class="login-box">
+                <h3><i class="fas fa-lock"></i> Admin Access</h3>
+                <div class="input-group">
+                    <input type="text" id="admin-username" placeholder="Username">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="admin-password" placeholder="Password">
+                </div>
+                <button onclick="login()" class="btn-primary" style="width: 100%;">Enter Control Center</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 MechaForge Engineering. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
