@@ -1,62 +1,63 @@
 // --- STATIC DATA START ---
 const defaultProjects = [
     {
-        "id": 1718863121001,
-        "title": "Custom Industrial Conveyors",
-        "description": "High-quality stainless steel conveyors designed for automated assembly lines.",
+        "id": 1778863121403,
+        "title": "Manufacturing & Industrial Sector",
+        "description": "We specialize in the local design and manufacturing of high-quality stainless steel products, industrial equipment, and custom engineering solutions tailored for modern industrial applications. With precision engineering, advanced fabrication techniques, and skilled workmanship, every product is manufactured in Sri Lanka to ensure superior quality, durability, reliability, and compliance with industry standards.",
         "type": "image",
         "url": "11.jpeg"
     },
     {
-        "id": 1718863121002,
-        "title": "Automated Assembly Lines",
-        "description": "Precision engineered assembly lines for seamless production processes.",
+        "id": 1778863351896,
+        "title": "Healthcare & Hospital Sector",
+        "description": "We design and manufacture high-quality stainless steel hospital equipment, medical machines, healthcare support systems, and custom engineering solutions for hospitals, laboratories, and medical facilities. Our solutions are developed to meet the demanding requirements of modern healthcare environments with a strong focus on hygiene, safety, durability, and precision engineering. All products are locally manufactured in Sri Lanka in compliance with healthcare industry standards.",
         "type": "image",
         "url": "22.jpeg"
     },
     {
-        "id": 1718863121003,
-        "title": "Robotics & Precision Machinery",
-        "description": "Advanced robotic solutions tailored for modern industrial applications.",
+        "id": 1778863379623,
+        "title": "Laboratory & Research Facilities",
+        "description": "Manufacturing of high-quality laboratory equipment, research support systems, stainless steel laboratory furniture, and custom-engineered solutions for laboratories, research centers, and scientific facilities. All products are locally manufactured in Sri Lanka with precision workmanship, durability, functionality, and compliance with modern laboratory and safety standards.",
         "type": "image",
         "url": "33.jpeg"
     },
     {
-        "id": 1718863121004,
-        "title": "Heavy Duty Steel Fabrication",
-        "description": "Durable steel structures complying with strict industry standards.",
+        "id": 1778863432524,
+        "title": "Clean Room & Controlled Environment Industry",
+        "description": "Providing precision-fabricated clean room equipment, stainless steel systems, and controlled environment solutions for pharmaceutical, medical, laboratory, and industrial facilities. Every product is locally manufactured in Sri Lanka with hygienic finishing, high durability, and strict attention to clean room performance and industry standards.",
         "type": "image",
         "url": "44.jpeg"
     },
     {
-        "id": 1718863121005,
-        "title": "CNC Machining Solutions",
-        "description": "State-of-the-art CNC machining for custom engineering components.",
+        "id": 1778863474589,
+        "title": "Food Processing & Commercial Kitchen Industry",
+        "description": "Delivering durable stainless steel kitchen equipment, food processing systems, pantry solutions, and custom fabrication work for restaurants, hotels, factories, and commercial food production facilities. All products are locally manufactured in Sri Lanka with hygienic finishing, precision workmanship, and compliance with food industry standards.",
         "type": "image",
         "url": "55.jpeg"
     },
     {
-        "id": 1718863121006,
-        "title": "Smart Automation Systems",
-        "description": "Intelligent automation frameworks that increase operational efficiency.",
+        "id": 1778863507350,
+        "title": "Construction & Engineering Sector",
+        "description": "Supporting construction and engineering projects with high-quality stainless steel fabrication, structural works, custom metal solutions, canopies, racks, and industrial support systems. All products are locally manufactured in Sri Lanka with precision engineering, durable construction, and reliable workmanship to meet modern project requirements.",
         "type": "image",
         "url": "66.jpeg"
     },
     {
-        "id": 1718863121007,
-        "title": "Hydraulic Press Equipment",
-        "description": "Reliable hydraulic systems built for heavy manufacturing demands.",
+        "id": 1778863572787,
+        "title": "Agriculture & Cultural Equipment Sector",
+        "description": "Providing durable agricultural and cultural equipment, custom machinery, and stainless steel fabrication solutions designed to support modern farming, processing, and industrial operations. All products are locally manufactured in Sri Lanka with reliable workmanship, practical functionality, and long-lasting performance for demanding working environments.",
         "type": "image",
         "url": "77.jpeg"
     },
     {
-        "id": 1718863121008,
-        "title": "Quality Control Systems",
-        "description": "Comprehensive QA machines to ensure product reliability and excellence.",
+        "id": 1778864137611,
+        "title": "Industrial Automation & Smart Manufacturing Solutions",
+        "description": "Delivering custom-built industrial machines, automated systems, and smart manufacturing solutions designed to improve productivity, efficiency, and operational performance. All systems are locally manufactured in Sri Lanka using precision engineering, advanced fabrication technology, and reliable industrial-grade components.",
         "type": "image",
         "url": "88.jpeg"
     }
 ];
+
 
 const defaultSettings = {
     "slogan": "Reliable Engineering. Exceptional Results.",
@@ -68,10 +69,26 @@ const defaultSettings = {
     ]
 };
 // --- STATIC DATA END ---
-// --- STATIC DATA END ---
+
+// Helper to get merged projects list
+function getProjects() {
+    const deletedIds = JSON.parse(localStorage.getItem('ariya_deleted_projects')) || [];
+    const customProjects = JSON.parse(localStorage.getItem('ariya_projects')) || [];
+    
+    let list = JSON.parse(JSON.stringify(defaultProjects));
+    customProjects.forEach(cp => {
+        const idx = list.findIndex(p => p.id === cp.id);
+        if (idx !== -1) {
+            list[idx] = cp;
+        } else {
+            list.push(cp);
+        }
+    });
+    return list.filter(p => !deletedIds.includes(p.id));
+}
 
 // Initialize State
-let projects = JSON.parse(localStorage.getItem('ariya_projects')) || defaultProjects;
+let projects = getProjects();
 let settings = JSON.parse(localStorage.getItem('ariya_settings')) || defaultSettings;
 let isLoggedIn = false;
 let currentBgIndex = 0;
@@ -200,23 +217,41 @@ function login() {
 function deleteProject(id) {
     if (!isLoggedIn) return;
     if (confirm('Delete this project?')) {
-        projects = projects.filter(p => p.id !== id);
-        localStorage.setItem('ariya_projects', JSON.stringify(projects));
+        let deletedIds = JSON.parse(localStorage.getItem('ariya_deleted_projects')) || [];
+        if (!deletedIds.includes(id)) {
+            deletedIds.push(id);
+            localStorage.setItem('ariya_deleted_projects', JSON.stringify(deletedIds));
+        }
+        let customProjects = JSON.parse(localStorage.getItem('ariya_projects')) || [];
+        customProjects = customProjects.filter(p => p.id !== id);
+        localStorage.setItem('ariya_projects', JSON.stringify(customProjects));
+        
+        projects = getProjects();
         renderProjects();
     }
 }
 
 // Event Listeners
-adminBtn.addEventListener('click', () => {
-    loginForm.classList.remove('hidden');
-    adminModal.style.display = 'flex';
-});
-closeModal.addEventListener('click', () => adminModal.style.display = 'none');
-window.onclick = (e) => { if (e.target == adminModal) adminModal.style.display = 'none'; };
+if (adminBtn) {
+    adminBtn.addEventListener('click', () => {
+        if (loginForm) loginForm.classList.remove('hidden');
+        if (adminModal) adminModal.style.display = 'flex';
+    });
+}
+if (closeModal) {
+    closeModal.addEventListener('click', () => {
+        if (adminModal) adminModal.style.display = 'none';
+    });
+}
+window.onclick = (e) => { 
+    if (adminModal && e.target == adminModal) {
+        adminModal.style.display = 'none'; 
+    }
+};
 
 // Initial Load
 applySettings();
 
-if (document.getElementById('project-grid')) {
+if (document.getElementById('projects-grid')) {
     renderProjects();
 }

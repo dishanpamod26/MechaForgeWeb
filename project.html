@@ -92,8 +92,8 @@
         const urlParams = new URLSearchParams(window.location.search);
         const projectId = urlParams.get('id');
 
-        // Use the global defaultProjects from script.js
-        const projects = JSON.parse(localStorage.getItem('ariya_projects')) || defaultProjects;
+        // Use the global getProjects helper from script.js
+        const projects = getProjects();
         const project = projects.find(p => p.id == projectId);
 
         const detailsDiv = document.getElementById('project-details');

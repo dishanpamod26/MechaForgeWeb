@@ -103,25 +103,12 @@
             </div>
 
             <div class="admin-footer">
-                <button onclick="exportStaticCode()" class="btn-secondary"><i class="fas fa-code"></i> Export for GitHub</button>
                 <button onclick="logoutAdmin()" class="btn-outline">Logout & Exit Dashboard</button>
             </div>
         </div>
     </div>
 
-    <!-- Export Modal -->
-    <div id="export-modal" class="admin-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:1000; justify-content:center; align-items:center; padding:20px;">
-        <div style="background:#1a1a2e; padding:30px; border-radius:15px; max-width:800px; width:100%; border:1px solid var(--primary);">
-            <h3 style="color:var(--primary);">Static Code for script.js</h3>
-            <p style="font-size:0.9rem; margin-bottom:15px;">Copy the code below and replace the first 25 lines of your <b>script.js</b> file.</p>
-            <textarea id="export-textarea" style="width:100%; height:300px; background:#050508; color:#0f0; border:1px solid #333; padding:10px; font-family:monospace; font-size:0.8rem;"></textarea>
-            <div style="margin-top:20px; display:flex; gap:10px;">
-                <button onclick="copyExportCode()" class="btn-primary">Copy Code</button>
-                <button onclick="document.getElementById('export-modal').style.display='none'" class="btn-outline">Close</button>
-            </div>
-        </div>
-    </div>
-
+    <script src="script.js"></script>
     <script>
         // Check Authentication
         if (localStorage.getItem('ariya_logged_in') !== 'true') {
@@ -131,8 +118,8 @@
             document.getElementById('auth-check').classList.remove('hidden');
         }
 
-        let projects = JSON.parse(localStorage.getItem('ariya_projects')) || [];
-        let settings = JSON.parse(localStorage.getItem('ariya_settings')) || {};
+        let projects = getProjects();
+        let settings = JSON.parse(localStorage.getItem('ariya_settings')) || defaultSettings;
 
         function showTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
@@ -196,8 +183,11 @@
 
             const reader = new FileReader();
             reader.onload = function(e) {
-                projects.push({ id: Date.now(), title, description: desc, type, url: e.target.result });
-                localStorage.setItem('ariya_projects', JSON.stringify(projects));
+                let customProjects = JSON.parse(localStorage.getItem('ariya_projects')) || [];
+                customProjects.push({ id: Date.now(), title, description: desc, type, url: e.target.result });
+                localStorage.setItem('ariya_projects', JSON.stringify(customProjects));
+                
+                projects = getProjects();
                 renderProjectsList();
                 alert('Project Added!');
                 document.getElementById('proj-title').value = '';
@@ -209,8 +199,17 @@
 
         function deleteProject(id) {
             if (confirm('Delete this project?')) {
-                projects = projects.filter(p => p.id !== id);
-                localStorage.setItem('ariya_projects', JSON.stringify(projects));
+                let deletedIds = JSON.parse(localStorage.getItem('ariya_deleted_projects')) || [];
+                if (!deletedIds.includes(id)) {
+                    deletedIds.push(id);
+                    localStorage.setItem('ariya_deleted_projects', JSON.stringify(deletedIds));
+                }
+                
+                let customProjects = JSON.parse(localStorage.getItem('ariya_projects')) || [];
+                customProjects = customProjects.filter(p => p.id !== id);
+                localStorage.setItem('ariya_projects', JSON.stringify(customProjects));
+                
+                projects = getProjects();
                 renderProjectsList();
             }
         }
@@ -220,26 +219,7 @@
             window.location.href = 'index.html';
         }
 
-        function exportStaticCode() {
-            const projectsData = JSON.stringify(projects, null, 4);
-            const settingsData = JSON.stringify(settings, null, 4);
-            
-            const code = `// --- STATIC DATA START ---
-const defaultProjects = ${projectsData};
 
-const defaultSettings = ${settingsData};
-// --- STATIC DATA END ---`;
-
-            document.getElementById('export-textarea').value = code;
-            document.getElementById('export-modal').style.display = 'flex';
-        }
-
-        function copyExportCode() {
-            const textarea = document.getElementById('export-textarea');
-            textarea.select();
-            document.execCommand('copy');
-            alert('Code copied! Now paste it into the top of your script.js file.');
-        }
 
         // Init
         document.getElementById('settings-slogan').value = settings.slogan || "";
