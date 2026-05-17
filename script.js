@@ -146,7 +146,7 @@ function applySettings() {
     const logoImg = document.getElementById('site-logo');
     if (logoImg) {
         logoImg.src = 'logo.jpeg';
-        logoImg.style.height = '80px';
+        logoImg.style.height = '60px';
         logoImg.style.display = 'block';
     }
 

@@ -11,11 +11,13 @@
     <script src="https://kit.fontawesome.com/d6f3576e01.js" crossorigin="anonymous"></script>
     <style>
         .details-container {
-            padding-top: 120px;
+            padding-top: 100px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
+            padding-left: 1rem;
+            padding-right: 1rem;
         }
         .full-media {
             width: 100%;
@@ -33,9 +35,10 @@
             border-radius: 20px;
             backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
+            margin-bottom: 3rem;
         }
         .project-content h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             margin-bottom: 1.5rem;
             color: var(--primary);
         }
@@ -55,15 +58,33 @@
             font-weight: 600;
             transition: 0.3s;
         }
-        .back-btn:hover {
-            color: var(--primary);
+        .back-btn:hover { color: var(--primary); }
+
+        /* Loading spinner */
+        .loading-spinner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            min-height: 40vh;
+            color: var(--text-dim);
         }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255,49,49,0.2);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="logo">
-            <img src="logo.jpeg" alt="MechaForge Engineering" id="site-logo" style="height: 80px; display: block;">
+            <img src="logo.jpeg" alt="MechaForge Engineering" id="site-logo" style="height: 60px; display: block;">
         </div>
         <ul class="nav-links">
             <li><a href="index.html">Back to Home</a></li>
@@ -72,10 +93,13 @@
 
     <div class="container details-container">
         <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Projects</a>
-        
+
         <div id="project-details">
-            <!-- Details will be loaded here -->
-            <div class="loading">Loading project details...</div>
+            <!-- Loading spinner shown while JS runs -->
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+                <p>Loading project...</p>
+            </div>
         </div>
     </div>
 
@@ -85,39 +109,52 @@
 
     <script src="script.js"></script>
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const projectId = urlParams.get('id');
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const projectId = urlParams.get('id');
+            const detailsDiv = document.getElementById('project-details');
 
-        // Use the global getProjects helper from script.js
-        const projects = getProjects();
-        let project = projects.find(p => p.id == projectId);
-        
-        // Fallback to static defaultProjects array if not found in active projects list (e.g. if deleted in local storage)
-        if (!project && typeof defaultProjects !== 'undefined') {
-            project = defaultProjects.find(p => p.id == projectId);
-        }
-
-        const detailsDiv = document.getElementById('project-details');
-
-        if (project) {
-            let mediaHtml = '';
-            if (project.type === 'video') {
-                mediaHtml = `<video class="full-media" src="${project.url}" controls autoplay muted loop></video>`;
-            } else {
-                mediaHtml = `<img src="${project.url}" alt="${project.title}" class="full-media">`;
+            if (!projectId) {
+                detailsDiv.innerHTML = '<div class="project-content"><h1>No Project Selected</h1><p>Please go back and select a project.</p></div>';
+                return;
             }
 
-            detailsDiv.innerHTML = `
-                ${mediaHtml}
-                <div class="project-content">
-                    <h1>${project.title}</h1>
-                    <p>${project.description}</p>
-                </div>
-            `;
-            document.title = `${project.title} | MechaForge Engineering`;
-        } else {
-            detailsDiv.innerHTML = `<h1>Project Not Found</h1><p>The project you are looking for does not exist or has been removed.</p>`;
-        }
+            // Search in merged projects list
+            const projectsList = (typeof getProjects === 'function') ? getProjects() : [];
+            let project = projectsList.find(p => p.id == projectId);
+
+            // Fallback to raw static defaultProjects array
+            if (!project && typeof defaultProjects !== 'undefined') {
+                project = defaultProjects.find(p => p.id == projectId);
+            }
+
+            if (project) {
+                let mediaHtml = '';
+                if (project.type === 'video') {
+                    mediaHtml = `<video class="full-media" src="${project.url}" controls autoplay muted loop></video>`;
+                } else {
+                    mediaHtml = `<img src="${project.url}" alt="${project.title}" class="full-media">`;
+                }
+
+                detailsDiv.innerHTML = `
+                    ${mediaHtml}
+                    <div class="project-content">
+                        <h1>${project.title}</h1>
+                        <p>${project.description}</p>
+                    </div>
+                `;
+                document.title = `${project.title} | MechaForge Engineering`;
+            } else {
+                detailsDiv.innerHTML = `
+                    <div class="project-content">
+                        <h1 style="color:var(--primary)">Project Not Found</h1>
+                        <p>The project you are looking for does not exist or may have been removed.</p>
+                        <br>
+                        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Go back to Home</a>
+                    </div>
+                `;
+            }
+        });
     </script>
 </body>
 </html>
