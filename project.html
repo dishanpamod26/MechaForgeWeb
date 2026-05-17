@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Details | Ariya Automation</title>
+    <title>Project Details | MechaForge Engineering</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -63,10 +63,10 @@
 <body>
     <nav class="navbar">
         <div class="logo">
-            <img src="" alt="Ariya Automation" id="site-logo" style="height: 40px; display: none;">
+            <img src="" alt="MechaForge Engineering" id="site-logo" style="height: 40px; display: none;">
             <div id="text-logo">
-                <span class="logo-text">ARIYA</span>
-                <span class="logo-subtext">AUTOMATION</span>
+                <span class="logo-text">MECHAFORGE</span>
+                <span class="logo-subtext">ENGINEERING</span>
             </div>
         </div>
         <ul class="nav-links">
@@ -84,7 +84,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 Ariya Automation. All Rights Reserved.</p>
+        <p>&copy; 2026 MechaForge Engineering. All Rights Reserved.</p>
     </footer>
 
     <script src="script.js"></script>
@@ -94,7 +94,12 @@
 
         // Use the global getProjects helper from script.js
         const projects = getProjects();
-        const project = projects.find(p => p.id == projectId);
+        let project = projects.find(p => p.id == projectId);
+        
+        // Fallback to static defaultProjects array if not found in active projects list (e.g. if deleted in local storage)
+        if (!project && typeof defaultProjects !== 'undefined') {
+            project = defaultProjects.find(p => p.id == projectId);
+        }
 
         const detailsDiv = document.getElementById('project-details');
 
@@ -113,7 +118,7 @@
                     <p>${project.description}</p>
                 </div>
             `;
-            document.title = `${project.title} | Ariya Automation`;
+            document.title = `${project.title} | MechaForge Engineering`;
         } else {
             detailsDiv.innerHTML = `<h1>Project Not Found</h1><p>The project you are looking for does not exist or has been removed.</p>`;
         }
