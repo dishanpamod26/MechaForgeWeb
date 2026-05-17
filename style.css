@@ -307,6 +307,29 @@ h1, h2, h3, .logo-text {
     border-color: var(--primary);
 }
 
+/* Brands Marquee Section */
+.brands-marquee {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.brands-marquee img {
+    height: 60px;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.brands-marquee img:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
 /* Contact Section */
 .contact-card {
     display: grid;
