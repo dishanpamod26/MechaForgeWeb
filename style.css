@@ -290,6 +290,8 @@ h1, h2, h3, .logo-text {
     border-radius: 12px;
     text-align: center;
     transition: 0.3s;
+    display: flex;
+    flex-direction: column;
 }
 
 .service-card i {
@@ -300,6 +302,52 @@ h1, h2, h3, .logo-text {
 
 .service-card h3 {
     margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.service-card p {
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    margin-bottom: 1.5rem;
+    text-align: justify;
+    line-height: 1.6;
+}
+
+.service-card .products-include {
+    text-align: left;
+    margin-top: auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--glass-border);
+}
+
+.service-card .products-include h4 {
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 1rem;
+}
+
+.service-card .products-include ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.service-card .products-include li {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    margin-bottom: 0.6rem;
+    position: relative;
+    padding-left: 1.2rem;
+    line-height: 1.4;
+}
+
+.service-card .products-include li::before {
+    content: "\25B8"; /* Small right pointing triangle */
+    color: var(--primary);
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 1rem;
+    line-height: 1.4;
 }
 
 .service-card:hover {
