@@ -307,6 +307,113 @@ h1, h2, h3, .logo-text {
     border-color: var(--primary);
 }
 
+/* Testimonials */
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.testimonial-card {
+    padding: 2.5rem 2rem;
+    border-radius: 12px;
+    position: relative;
+    transition: 0.3s;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+}
+
+.quote-icon {
+    font-size: 2rem;
+    color: var(--primary);
+    opacity: 0.5;
+    margin-bottom: 1.5rem;
+}
+
+.testimonial-card p {
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--text-dim);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.client-info h4 {
+    color: white;
+    margin-bottom: 0.2rem;
+}
+
+.client-info span {
+    font-size: 0.85rem;
+    color: var(--primary);
+}
+
+/* FAQ Section */
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.faq-item {
+    border-radius: 8px;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.faq-item.active {
+    border-color: var(--primary);
+}
+
+.faq-question {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    background: rgba(0,0,0,0.2);
+}
+
+.faq-question h3 {
+    font-size: 1.1rem;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0;
+    margin: 0;
+}
+
+.faq-question i {
+    color: var(--primary);
+    transition: transform 0.3s;
+}
+
+.faq-item.active .faq-question i {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    padding: 0 1.5rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease;
+    background: rgba(0,0,0,0.1);
+}
+
+.faq-item.active .faq-answer {
+    padding: 1.5rem;
+    max-height: 200px;
+}
+
+.faq-answer p {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    margin: 0;
+}
+
 /* Contact Section */
 .contact-card {
     display: grid;
