@@ -12,14 +12,14 @@ const defaultProjects = [
         "title": "Healthcare & Hospital Sector",
         "description": "We design and manufacture high-quality stainless steel hospital equipment, medical machines, healthcare support systems, and custom engineering solutions for hospitals, laboratories, and medical facilities. Our solutions are developed to meet the demanding requirements of modern healthcare environments with a strong focus on hygiene, safety, durability, and precision engineering. All products are locally manufactured in Sri Lanka in compliance with healthcare industry standards.",
         "type": "image",
-        "url": "22.jpeg"
+        "url": "55.jpeg"
     },
     {
         "id": 1778863379623,
         "title": "Laboratory & Research Facilities",
         "description": "Manufacturing of high-quality laboratory equipment, research support systems, stainless steel laboratory furniture, and custom-engineered solutions for laboratories, research centers, and scientific facilities. All products are locally manufactured in Sri Lanka with precision workmanship, durability, functionality, and compliance with modern laboratory and safety standards.",
         "type": "image",
-        "url": "33.jpeg"
+        "url": "22.jpeg"
     },
     {
         "id": 1778863432524,
@@ -33,21 +33,21 @@ const defaultProjects = [
         "title": "Food Processing & Commercial Kitchen Industry",
         "description": "Delivering durable stainless steel kitchen equipment, food processing systems, pantry solutions, and custom fabrication work for restaurants, hotels, factories, and commercial food production facilities. All products are locally manufactured in Sri Lanka with hygienic finishing, precision workmanship, and compliance with food industry standards.",
         "type": "image",
-        "url": "55.jpeg"
+        "url": "66.jpeg"
     },
     {
         "id": 1778863507350,
         "title": "Construction & Engineering Sector",
         "description": "Supporting construction and engineering projects with high-quality stainless steel fabrication, structural works, custom metal solutions, canopies, racks, and industrial support systems. All products are locally manufactured in Sri Lanka with precision engineering, durable construction, and reliable workmanship to meet modern project requirements.",
         "type": "image",
-        "url": "66.jpeg"
+        "url": "77.jpeg"
     },
     {
         "id": 1778863572787,
         "title": "Agriculture & Cultural Equipment Sector",
         "description": "Providing durable agricultural and cultural equipment, custom machinery, and stainless steel fabrication solutions designed to support modern farming, processing, and industrial operations. All products are locally manufactured in Sri Lanka with reliable workmanship, practical functionality, and long-lasting performance for demanding working environments.",
         "type": "image",
-        "url": "77.jpeg"
+        "url": "33.jpeg"
     },
     {
         "id": 1778864137611,
