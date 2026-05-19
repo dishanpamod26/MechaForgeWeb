@@ -1,0 +1,2 @@
+# Deny public access to database connection files
+Require all denied
